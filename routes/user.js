@@ -14,9 +14,13 @@ router.post('/signup', (req, res) => {
        res.send('user created successfully')
 });
 
-router.get('/courses', (req, res) => {
-    // Implement listing all courses logic
-});
+router.get('/courses',async (req, res) => {
+    const courseslist = await Course.find({})
+    res.json({
+        course: courseslist
+    })
+}
+    )
 
 router.post('/courses/:courseId', userMiddleware,async (req, res) => {
     const {username} = req.headers;
