@@ -14,11 +14,21 @@ router.post('/signup', (req, res) => {
 });
 
 router.post('/courses', adminMiddleware, (req, res) => {
-   res.send("admin exist")
+     const {title,description,price} = req.body
+     Course.create({
+        title:title,
+        description:description,
+        price:price
+
+     })
+     res.json("course created successfully")
 });
 
-router.get('/courses', adminMiddleware, (req, res) => {
-    // Implement fetching all courses logic
+router.get('/courses', adminMiddleware, async (req, res) => {
+   const courseslist = await Course.find({})
+    res.json({
+        course: courseslist
+    })
 });
 
 module.exports = router;
